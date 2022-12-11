@@ -16,16 +16,6 @@ func GenerateHashPassword(c echo.Context) error{
 
 }
 
-func FetchAllUsers(c echo.Context) error{
-	result, err := models.FetchAllUsers()
-	
-	if err != nil{
-		return c.JSON(http.StatusInternalServerError,
-		result)
-	}
-	return c.JSON(http.StatusOK, result)
-	}
-	
 func CheckLogin(c echo.Context) error{
 	username := c.FormValue("username")
 	password := c.FormValue("password")

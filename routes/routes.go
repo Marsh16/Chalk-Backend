@@ -19,20 +19,21 @@ func getUser(c echo.Context) error {
 
 func Init() *echo.Echo {
 	e := echo.New()
-	e.GET("/", func(c echo.Context) error {
-		return c.String(http.StatusOK, "Hello, Guys!")
-	})
-
-	e.GET("/user", func(c echo.Context) error {
-		return c.String(http.StatusOK, "Hello, this is user page!")
-	})
-
-	e.GET("/user/:name", getUser)
 	e.GET("/generate-hash/:password", controllers.GenerateHashPassword)
+	
+	//untuk user/profile
 	e.POST("/login", controllers.CheckLogin)
-	e.GET("/mahasiswa", controllers.FetchAllUsers)
+	e.GET("/users", controllers.FetchAllUsers)
+	//registration
+	e.POST("/users", controllers.StoreUsers)
+	//edit profile
+	e.PATCH("/users", controllers.UpdateUsers)
+	//delete account(mungkin tidak perlu)
+	e.DELETE("/users", controllers.DeleteUsers)
+	//bisa pengecekan dari app (mungkin tidak perlu validation dari api)
 	e.POST("/test-validation", controllers.TestStructValidation)
 	e.POST("/test-validation-var", controllers.TestVarValidation)
+	//
 	return e
 
 }
