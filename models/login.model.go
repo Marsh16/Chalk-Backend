@@ -15,7 +15,7 @@ type User struct{
     Email	string   `json:"email" validate:"required"`
 	Phone_Number	string   `json:"phone_number" validate:"required"`
 	Dateofbirth	string   `json:"dateofbirth" validate:"required"`
-	Profilepic	string   `json:"profilepic" validate:"required"`
+	Profilepic	string   `json:"profilepic"`
 	Password string   `json:"password" validate:"required"`
 }
 

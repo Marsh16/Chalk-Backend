@@ -15,5 +15,5 @@ import (
 func main() {
 	db.Init()
 	e := routes.Init()
-	e.Logger.Fatal(e.Start("192.168.100.52:7070"))
+	e.Logger.Fatal(e.Start("192.168.43.106:7070"))
 }
