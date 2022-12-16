@@ -23,7 +23,8 @@ func Init() *echo.Echo {
 	
 	//untuk user/profile
 	e.POST("/login", controllers.CheckLogin)
-	e.GET("/users", controllers.FetchAllUsers)
+	e.POST("/loginsuccess", controllers.FetchAllUsers)
+	e.POST("/channels", controllers.FetchAllChannels)
 	//registration
 	e.POST("/users", controllers.StoreUsers)
 	//edit profile

@@ -10,14 +10,14 @@ import (
 
 
 //Read all
-func FetchAllUsers()(Response, error){
+func FetchAllUsers(user_id string)(Response, error){
 	var obj User
 	var arrObj []User
 	var res Response
 
 	con:= db.CreateCon()
 
-	sqlStatement := "SELECT * FROM users"
+	sqlStatement := "SELECT * FROM users where user_id="+ user_id
 	rows, err := con.Query(sqlStatement)
 	defer rows.Close()
 

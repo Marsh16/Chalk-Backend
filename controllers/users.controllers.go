@@ -8,14 +8,18 @@ import (
 
 
 func FetchAllUsers(c echo.Context) error{
-	result, err := models.FetchAllUsers()
+	user_id:=  c.FormValue("user_id")
+	
+
+	result, err := models.FetchAllUsers(user_id)
 	
 	if err != nil{
 		return c.JSON(http.StatusInternalServerError,
-		result)
+		map[string]string{"message": err.Error()})
 	}
 	return c.JSON(http.StatusOK, result)
 	}
+	
 
 func StoreUsers(c echo.Context) error{
 name:= c.FormValue("name")
