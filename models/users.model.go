@@ -4,11 +4,37 @@ import (
 	"vp_week11_echo/db"
 	"net/http"
 	//"encoding/json"
+	// "database/sql"
+	
+	// "fmt"
 	"github.com/go-playground/validator"
 )
+func FetchUsersByUsername(username string)(Response, error){//error
+	var obj string
+	// var arrObj []User
+	var res Response
+
+	con:= db.CreateCon()
+
+	sqlStatement := "SELECT user_id FROM users WHERE username = ?"
+	err := con.QueryRow(sqlStatement, username).Scan(
+		&obj,
+	)
+	
 	
 
+	if err != nil{
+		return res,err
+	}
 
+	res.Status = http.StatusOK
+	res.Message="Success"
+	res.Data = obj
+
+	return res, nil
+	
+
+}
 //Read all
 func FetchAllUsers(user_id string)(Response, error){
 	var obj User

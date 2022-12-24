@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"github.com/labstack/echo/v4"
 	"vp_week11_echo/controllers"
-	// "vp_week11_echo/middleware"
+	"vp_week11_echo/middleware"
 )
 
 // e.GET("/users/:id", getUser)
@@ -23,15 +23,34 @@ func Init() *echo.Echo {
 	
 	//untuk user/profile
 	e.POST("/login", controllers.CheckLogin)
-	e.POST("/loginsuccess", controllers.FetchAllUsers)
-	e.POST("/channels", controllers.FetchAllChannels)
-	//registration
+	e.POST("/cekuserexist", controllers.CheckUserExist)
+	e.POST("/cekcontactexist", controllers.CheckContactExist)
+	e.POST("/loginsuccess", controllers.FetchAllUsers,middleware.IsAuthenticated)//byuserid, token
+	e.POST("/fetchusername", controllers.FetchUsersByUsername)//byusername
+	e.POST("/fetchchannelbyuserid", controllers.FetchAllChannels)//by user_id
+	e.POST("/fetchchannel", controllers.FetchChannelsByChannelId)//bychannelid
+	e.POST("/fetchgroupbyuserid", controllers.FetchAllGroups)//by user_id
+	e.POST("/fetchgroup", controllers.FetchGroupsByGroupId)//bygroupid
+	e.POST("/fetchcontactbyuserid", controllers.FetchAllContacts)//by user_id
+	e.POST("/fetchcontact", controllers.FetchContactsByContactId)//byCONTACTid
+	e.POST("/fetchchatbyuserid", controllers.FetchAllChats)//by user_id
+	
+	//registration, add
 	e.POST("/users", controllers.StoreUsers)
-	//edit profile
+	e.POST("/channels", controllers.StoreChannels)
+	e.POST("/groups", controllers.StoreGroups)
+	e.POST("/contacts", controllers.StoreContacts)
+	//edit 
 	e.PATCH("/users", controllers.UpdateUsers)
-	//delete account(mungkin tidak perlu)
+	e.PATCH("/channels", controllers.UpdateChannels)
+	e.PATCH("/groups", controllers.UpdateGroups)
+	e.PATCH("/contacts", controllers.UpdateContacts)
+	//delete 
+	e.DELETE("/channels", controllers.DeleteChannels)
+	e.DELETE("/groups", controllers.DeleteGroups)
 	e.DELETE("/users", controllers.DeleteUsers)
-	//bisa pengecekan dari app (mungkin tidak perlu validation dari api)
+	e.DELETE("/contacts", controllers.DeleteContacts)
+	//bisa pengecekan dari app
 	e.POST("/test-validation", controllers.TestStructValidation)
 	e.POST("/test-validation-var", controllers.TestVarValidation)
 	//

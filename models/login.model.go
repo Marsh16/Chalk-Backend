@@ -6,6 +6,7 @@ import (
 	"database/sql"
 	"vp_week11_echo/helpers"
 	"fmt"
+	// "net/http"
 )
 
 type User struct{
@@ -19,6 +20,23 @@ type User struct{
 	Password string   `json:"password" validate:"required"`
 }
 
+func CheckUserExist(username string)(bool, error){
+	var obj User
+	con := db.CreateCon()
+
+	sqlStatement := "SELECT * FROM users WHERE username = ?"
+	err := con.QueryRow(sqlStatement, username).Scan(
+		&obj.Id, &obj.Name, &obj.Username,&obj.Email,&obj.Phone_Number, &obj.Dateofbirth,&obj.Profilepic, &obj.Password,
+	)
+
+	if err != sql.ErrNoRows {
+		fmt.Print("Username found!")
+		return false, err
+	}
+
+
+	return true, nil
+}
 func CheckLogin(username, password string) (bool, error) {
 	var obj User
 	var pwd string
