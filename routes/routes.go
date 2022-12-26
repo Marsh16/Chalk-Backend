@@ -33,13 +33,15 @@ func Init() *echo.Echo {
 	e.POST("/fetchgroup", controllers.FetchGroupsByGroupId)//bygroupid
 	e.POST("/fetchcontactbyuserid", controllers.FetchAllContacts)//by user_id
 	e.POST("/fetchcontact", controllers.FetchContactsByContactId)//byCONTACTid
-	e.POST("/fetchchatbyuserid", controllers.FetchAllChats)//by user_id
-	
+	e.POST("/fetchallchatbyuserid", controllers.FetchAllChats)//by user_id
+	e.POST("/fetchchatbyuserid", controllers.FetchChats)//by user_id
+	e.POST("/fetchchat", controllers.FetchChatsByChatId)//by chat id
 	//registration, add
 	e.POST("/users", controllers.StoreUsers)
 	e.POST("/channels", controllers.StoreChannels)
 	e.POST("/groups", controllers.StoreGroups)
 	e.POST("/contacts", controllers.StoreContacts)
+	e.POST("/chats", controllers.StoreChats)
 	//edit 
 	e.PATCH("/users", controllers.UpdateUsers)
 	e.PATCH("/channels", controllers.UpdateChannels)
@@ -50,6 +52,7 @@ func Init() *echo.Echo {
 	e.DELETE("/groups", controllers.DeleteGroups)
 	e.DELETE("/users", controllers.DeleteUsers)
 	e.DELETE("/contacts", controllers.DeleteContacts)
+	e.DELETE("/chats", controllers.DeleteChats)
 	//bisa pengecekan dari app
 	e.POST("/test-validation", controllers.TestStructValidation)
 	e.POST("/test-validation-var", controllers.TestVarValidation)
