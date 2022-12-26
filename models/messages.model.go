@@ -1,29 +1,29 @@
 package models
 
-// import (
-// 	"vp_week11_echo/db"
-// 	"net/http"
-// 	//"encoding/json"
-// 	"github.com/go-playground/validator"
-// )
+import (
+	"vp_week11_echo/db"
+	"net/http"
+	//"encoding/json"
+	"github.com/go-playground/validator"
+)
 
 
 type Message struct{
 	Id		int   `json:"messages_id"`
     Messages 	string   `json:"messages" validate:"required"`
-    Contact_id int   `json:"contact_id" validate:"required"`
+    Contact_id string   `json:"contact_id" validate:"required"`
 }
 
 //add, fecth by user id , fetch messages by contact id, 
 
-func FetchAllContact(user_id string)(Response, error){
-	var obj Contact
-	var arrObj []Contact
+func FetchMessagesByContactId(contact_id string)(Response, error){
+	var obj Message
+	var arrObj []Message
 	var res Response
 	con:= db.CreateCon()
 	// , contacts.user_id 
 
-	sqlStatement := "SELECT * from contacts where user_id= "+user_id
+	sqlStatement := "SELECT * from messages where contact_id= "+contact_id
 	rows, err := con.Query(sqlStatement)
 	defer rows.Close()
 
@@ -31,7 +31,7 @@ func FetchAllContact(user_id string)(Response, error){
 		return res,err
 	}
 	for rows.Next(){
-		err = rows.Scan(	&obj.Id, &obj.Name, &obj.Phone_Number,&obj.Profilepic,&obj.User_id )
+		err = rows.Scan(	&obj.Id, &obj.Messages, &obj.Contact_id)
 		if err != nil{
 			return res,err
 		}
@@ -44,16 +44,14 @@ func FetchAllContact(user_id string)(Response, error){
 	return res, nil
 }
 //insert data
-func StoreContacts(name string, phone_number string, profilepic string, user_id string)(Response, error){
+func StoreMessages(messages string, contact_id string)(Response, error){
 	var res Response
 	
 	v := validator.New()
 	
-	usr := Contact{
-		Name: name,
-		Phone_Number: phone_number,
-		Profilepic: profilepic,
-		User_id:user_id,
+	usr := Message{
+		Messages: messages,
+		Contact_id: contact_id,
 	}
 	
 	err := v.Struct(usr)
@@ -67,7 +65,7 @@ func StoreContacts(name string, phone_number string, profilepic string, user_id 
 	}
 	
 	con := db.CreateCon()
-	sqlStatement := "INSERT INTO contacts(name,phone_number,profilepic,user_id) VALUES (?,?,?,?)"
+	sqlStatement := "INSERT INTO messages(messages,contact_id) VALUES (?,?)"
 	stmt, err := con.Prepare(sqlStatement)
 	
 	if err!= nil{
@@ -79,7 +77,7 @@ func StoreContacts(name string, phone_number string, profilepic string, user_id 
 		return res, err
 	}
 	
-	result, err := stmt.Exec(name,phone_number,profilepic,user_id)
+	result, err := stmt.Exec(messages,contact_id)
 	if err!= nil{
 		return res, err
 	}
@@ -98,32 +96,6 @@ func StoreContacts(name string, phone_number string, profilepic string, user_id 
 		return res,nil
 	
 	}
-func FetchContactsByContactId(contact_id string)(Response, error){
-	var obj Contact
-	var arrObj []Contact
-	var res Response
-	con:= db.CreateCon()
-
-	sqlStatement := "SELECT * from contacts WHERE contact_id=" + contact_id
-	rows, err := con.Query(sqlStatement)
-	defer rows.Close()
-
-	if err != nil{
-		return res,err
-	}
-	for rows.Next(){
-		err = rows.Scan(&obj.Id, &obj.Name, &obj.Phone_Number,&obj.Profilepic, &obj.User_id)
-		if err != nil{
-			return res,err
-		}
-		arrObj = append(arrObj, obj)
-	}
-	res.Status = http.StatusOK
-	res.Message="Success"
-	res.Data = arrObj
-
-	return res, nil
-}
 
 
 

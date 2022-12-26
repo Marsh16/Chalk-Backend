@@ -36,12 +36,22 @@ func Init() *echo.Echo {
 	e.POST("/fetchallchatbyuserid", controllers.FetchAllChats)//by user_id
 	e.POST("/fetchchatbyuserid", controllers.FetchChats)//by user_id
 	e.POST("/fetchchat", controllers.FetchChatsByChatId)//by chat id
+	e.POST("/fetchmessage", controllers.FetchMessagesByContactId)//by message id
+	e.POST("/fetchmessagechannel", controllers.FetchMessagesByChannelId)//by message id
+	e.POST("/fetchmessagegroup", controllers.FetchMessagesByGroupId)//by message id
+	e.POST("/fetchcontactgroup", controllers.FetchContactByGroupId)//by message id
+	e.POST("/fetchcontactchannel", controllers.FetchContactByChannelId)//by message id
 	//registration, add
 	e.POST("/users", controllers.StoreUsers)
 	e.POST("/channels", controllers.StoreChannels)
 	e.POST("/groups", controllers.StoreGroups)
 	e.POST("/contacts", controllers.StoreContacts)
 	e.POST("/chats", controllers.StoreChats)
+	e.POST("/messages", controllers.StoreMessages)
+	e.POST("/messageschannel", controllers.StoreMessagesChannels)
+	e.POST("/messagesgroup", controllers.StoreMessagesGroups)
+	e.POST("/contactsgroups", controllers.StoreContactsGroups)
+	e.POST("/contactschannels", controllers.StoreContactsChannels)
 	//edit 
 	e.PATCH("/users", controllers.UpdateUsers)
 	e.PATCH("/channels", controllers.UpdateChannels)
