@@ -61,8 +61,8 @@ phone_number:= c.FormValue("phone_number")
 dateofbirth:= c.FormValue("dateofbirth")
 profilepic:= c.FormValue("profilepic")
 password:=  c.FormValue("password")
-
-			result, err := models.UpdateUsers(id,name,username,email,phone_number,dateofbirth,profilepic,password)
+hash, _ := helpers.HashPassword(password)
+			result, err := models.UpdateUsers(id,name,username,email,phone_number,dateofbirth,profilepic,hash)
 			
 			if err != nil{
 				return c.JSON(http.StatusInternalServerError,

@@ -22,25 +22,25 @@ func Init() *echo.Echo {
 	e.GET("/generate-hash/:password", controllers.GenerateHashPassword)
 	
 	//untuk user/profile
-	e.POST("/login", controllers.CheckLogin)
-	e.POST("/cekuserexist", controllers.CheckUserExist)
+	e.GET("/login", controllers.CheckLogin)
+	e.GET("/cekuserexist", controllers.CheckUserExist)
 	e.POST("/cekcontactexist", controllers.CheckContactExist)
-	e.POST("/loginsuccess", controllers.FetchAllUsers,middleware.IsAuthenticated)//byuserid, token
-	e.POST("/fetchusername", controllers.FetchUsersByUsername)//byusername
-	e.POST("/fetchchannelbyuserid", controllers.FetchAllChannels)//by user_id
-	e.POST("/fetchchannel", controllers.FetchChannelsByChannelId)//bychannelid
-	e.POST("/fetchgroupbyuserid", controllers.FetchAllGroups)//by user_id
-	e.POST("/fetchgroup", controllers.FetchGroupsByGroupId)//bygroupid
-	e.POST("/fetchcontactbyuserid", controllers.FetchAllContacts)//by user_id
-	e.POST("/fetchcontact", controllers.FetchContactsByContactId)//byCONTACTid
-	e.POST("/fetchallchatbyuserid", controllers.FetchAllChats)//by user_id
-	e.POST("/fetchchatbyuserid", controllers.FetchChats)//by user_id
-	e.POST("/fetchchat", controllers.FetchChatsByChatId)//by chat id
-	e.POST("/fetchmessage", controllers.FetchMessagesByContactId)//by message id
-	e.POST("/fetchmessagechannel", controllers.FetchMessagesByChannelId)//by message id
-	e.POST("/fetchmessagegroup", controllers.FetchMessagesByGroupId)//by message id
-	e.POST("/fetchcontactgroup", controllers.FetchContactByGroupId)//by message id
-	e.POST("/fetchcontactchannel", controllers.FetchContactByChannelId)//by message id
+	e.GET("/loginsuccess", controllers.FetchAllUsers,middleware.IsAuthenticated)//byuserid, token
+	e.GET("/fetchusername", controllers.FetchUsersByUsername)//byusername
+	e.GET("/fetchchannelbyuserid", controllers.FetchAllChannels)//by user_id
+	e.GET("/fetchchannel", controllers.FetchChannelsByChannelId)//bychannelid
+	e.GET("/fetchgroupbyuserid", controllers.FetchAllGroups)//by user_id
+	e.GET("/fetchgroup", controllers.FetchGroupsByGroupId)//bygroupid
+	e.GET("/fetchcontactbyuserid", controllers.FetchAllContacts)//by user_id
+	e.GET("/fetchcontact", controllers.FetchContactsByContactId)//byCONTACTid
+	e.GET("/fetchallchatbyuserid", controllers.FetchAllChats)//by user_id
+	e.GET("/fetchchatbyuserid", controllers.FetchChats)//by user_id
+	e.GET("/fetchchat", controllers.FetchChatsByChatId)//by chat id
+	e.GET("/fetchmessage", controllers.FetchMessagesByContactId)//by message id
+	e.GET("/fetchmessagechannel", controllers.FetchMessagesByChannelId)//by message id
+	e.GET("/fetchmessagegroup", controllers.FetchMessagesByGroupId)//by message id
+	e.GET("/fetchcontactgroup", controllers.FetchContactByGroupId)//by message id
+	e.GET("/fetchcontactchannel", controllers.FetchContactByChannelId)//by message id
 	//registration, add
 	e.POST("/users", controllers.StoreUsers)
 	e.POST("/channels", controllers.StoreChannels)
