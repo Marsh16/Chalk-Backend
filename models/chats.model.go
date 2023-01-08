@@ -112,7 +112,7 @@ func FetchAllChats(user_id string)(Response, error){
 	func DeleteChats(id string)(Response, error){
 		var res Response
 		con := db.CreateCon()
-		sqlStatement := "DELETE FROM chats WHERE chat_id=?"
+		sqlStatement := "DELETE FROM chats WHERE contact_id=?"
 		stmt, err := con.Prepare(sqlStatement)
 		
 		if err!= nil{

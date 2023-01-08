@@ -29,9 +29,9 @@ func FetchAllChats(c echo.Context) error{
 				return c.JSON(http.StatusOK, result)
 				}
 func DeleteChats(c echo.Context) error{
-		id:= c.FormValue("chat_id")
+		id:= c.FormValue("contact_id")
 					
-			result, err := models.DeleteChannels(id)
+			result, err := models.DeleteChats(id)
 						
 						if err != nil{
 							return c.JSON(http.StatusInternalServerError,
